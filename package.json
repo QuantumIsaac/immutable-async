@@ -1,0 +1,14 @@
+{
+  "name": "immutable-async",
+  "version": "1.0.0",
+  "description": "Asynchronous implementations of Immutable collections",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Isaac Dorenkamp",
+  "license": "MIT",
+  "dependencies": {
+    "immutable": "^4.0.0-rc.12"
+  }
+}
