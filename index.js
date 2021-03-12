@@ -1,10 +1,10 @@
-var immutable = require('immutable');
-
-// apply hooks to immutable
-var hooks = require('./hooks');
-hooks(immutable);
+const hooks = require('./hooks');
 
 // export asynchronous Seq
 module.exports = {
+    Hooks: {
+        Immutable: hooks.universal,
+        Seq: hooks.Seq
+    },
     AsyncSeq: require('./AsyncSeq')
 };

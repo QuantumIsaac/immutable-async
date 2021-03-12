@@ -1,20 +1,29 @@
 const AsyncSeq = require('./AsyncSeq');
 
-const extend = (base, extension) => {
+function extend (base, extension) {
     Object.keys(extension).forEach(key => {
         base[key] = extension[key];
     });
 }
 
-module.exports = function(immutable) {
-    const properties = {...immutable.Seq};
-    const oldseq = immutable.Seq;
-    immutable.Seq = (value) => {
-        const _aseq = oldseq(value);
-        _aseq.async = () => {
-            return new AsyncSeq(_aseq);
-        };
-        return _aseq;
+function _hook_seq(aseq) {
+    aseq.async = () => {
+        return new AsyncSeq(aseq);
+    };
+}
+
+module.exports = {
+    universal: Immutable => {
+        const properties = {...Immutable.Seq};
+        const oldseq = Immutable.Seq;
+        Immutable.Seq = (value) => {
+            const _aseq = oldseq(value);
+            _hook_seq(_aseq);
+            return _aseq;
+        }
+        extend(Immutable.Seq, properties);
+    },
+    Seq: seq => {
+        _hook_seq(seq);
     }
-    extend(immutable.Seq, properties);
 }

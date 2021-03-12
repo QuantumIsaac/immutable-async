@@ -52,7 +52,8 @@ class AsyncSeq {
     filter(predicate) {
         this._push_promise(seq => this._get_promise(seq, predicate, filterRes => seq.filter((_, idx) => {
             return filterRes.get(idx);
-        })))
+        })));
+        return this;
     }
 }
 
